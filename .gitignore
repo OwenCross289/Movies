@@ -396,3 +396,15 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+/.idea
+/.idea/.idea.Movies/.idea/encodings.xml
+/.idea/.idea.Movies/.idea/indexLayout.xml
+/.idea/.idea.Movies/.idea/projectSettingsUpdater.xml
+/.idea/.idea.Movies/.idea/vcs.xml
+/.idea/.idea.Movies/.idea/workspace.xml
+/.idea/.idea.Movies/.idea/dataSources/c7eb03bf-dc45-47cc-bb79-001301a90d3c.xml
+/.idea/.idea.Movies/.idea/dataSources.local.xml
+/.idea/.idea.Movies/.idea/dataSources.xml
+/.idea/.idea.Movies/.idea/dataSources/c7eb03bf-dc45-47cc-bb79-001301a90d3c/storage_v2/_src_/database/movies.Q6dTwA/schema/information_schema.FNRwLQ.zip
+/.idea/.idea.Movies/.idea/dataSources/c7eb03bf-dc45-47cc-bb79-001301a90d3c/storage_v2/_src_/database/movies.Q6dTwA/schema/pg_catalog.0S1ZNQ.zip
+/.idea/.idea.Movies/.idea/sqldialects.xml
