@@ -1,4 +1,4 @@
-using Movies.Application.Models;
+using Movies.Application.Movie;
 using Movies.Contracts.Requests;
 using Movies.Contracts.Responses;
 
@@ -19,7 +19,7 @@ public static class ContractMapping
 
     public static MovieResponse ToResponse(this Movie movie)
     {
-        return new MovieResponse(movie.Id, movie.Title, movie.Slug, movie.YearOfRelease, movie.Genres);
+        return new MovieResponse(movie.Id, movie.Title, movie.Slug, movie.YearOfRelease, movie.Rating, movie.UserRating, movie.Genres);
     }
 
     public static MoviesResponse ToResponse(this IEnumerable<Movie> movies)

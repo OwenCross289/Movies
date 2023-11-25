@@ -21,6 +21,14 @@ public static class Sql
             movieId UUID references movies (Id),
             name TEXT not null);
         """;
+    
+    public static readonly string CreateRatingsTable = """
+        create table if not exists ratings (
+            userid uuid,
+            movieid uuid references movies (id), 
+            rating integer not null,
+            primary key (userid, movieid));
+        """;
 
     public static readonly string CreateMovieWithoutGenre = """
         insert into movies (id, slug, title, yearofrelease)
@@ -33,7 +41,12 @@ public static class Sql
         """;
     
     public static readonly string GetMovieById = """
-        select * from movies where id = @id
+        select m.*, round(avg(r.rating), 1) as rating, myr.rating as userrating
+        from movies m 
+        left join ratings r on m.id = r.movieid
+        left join ratings myr on m.id = myr.movieid and myr.userid = @userId
+        where id = @id
+        group by id, userrating
         """;
     
     public static readonly string GetGenresForMovieById = """
@@ -41,13 +54,24 @@ public static class Sql
         """;
     
     public static readonly string GetMovieBySlug = """
-        select * from movies where slug = @slug
+        select m.*, round(avg(r.rating), 1) as rating, myr.rating as userrating
+        from movies m 
+        left join ratings r on m.id = r.movieid
+        left join ratings myr on m.id = myr.movieid and myr.userid = @userId
+        where slug = @slug
+        group by id, userrating
         """;
     
     public static readonly string GetAllMovies = """
-        select m.*, string_agg(g.name, ',') as genres
-        from movies m left join genres g on m.id = g.movieid
-        group by id
+        select m.*,
+               string_agg(distinct g.name, ',') as genres ,
+               round(avg(r.rating), 1) as rating,
+               myr.rating as userrating
+        from movies m 
+        left join genres g on m.id = g.movieid
+        left join ratings r on m.id = r.movieid
+        left join ratings myr on m.id = myr.movieid and myr.userid = @userId
+        group by id, userrating
         """;
     
     public static readonly string MovieExistsById = """
@@ -66,4 +90,20 @@ public static class Sql
     public static readonly string DeleteMovieById = """
         delete from movies where id = @id
         """;
+    
+    public static readonly string GetRatingByMovieId = """
+        select round (avg(r.rating), 1) from ratings r 
+        where movieId = @movieId
+        """;
+    
+    public static readonly string GetRatingByMovieIdAndUserid = """
+        select round (avg(r.rating), 1),
+               (select rating 
+                from ratings
+                where movieid = @movieId and userid = @userId
+                limit 1)
+        from ratings
+        where movieId = @movieId
+        """;
+    
 }

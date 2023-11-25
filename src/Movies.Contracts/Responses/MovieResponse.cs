@@ -5,4 +5,6 @@ public record MovieResponse(
     string Title,
     string Slug,
     int YearOfRelease, 
+    float? Rating,
+    int? UserRating,
     IEnumerable<string> Genres);

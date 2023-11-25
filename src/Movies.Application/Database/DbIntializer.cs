@@ -18,5 +18,6 @@ public class DbInitializer
         await connection.ExecuteAsync(Sql.CreateMoviesTable);
         await connection.ExecuteAsync(Sql.CreateSlugIndex);
         await connection.ExecuteAsync(Sql.CreateGenresTable);
+        await connection.ExecuteAsync(Sql.CreateRatingsTable);
     }
 }
