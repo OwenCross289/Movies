@@ -1,5 +1,5 @@
+using FluentValidation;
 using Movies.Contracts.Responses;
-using ValidationException = FluentValidation.ValidationException;
 
 namespace Movies.Api.Mapping;
 

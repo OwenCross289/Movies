@@ -6,10 +6,7 @@ public static class IdentityExtensions
     {
         var userId = context.User.Claims.SingleOrDefault(x => x.Type == "userid");
 
-        if (Guid.TryParse(userId?.Value, out var parsedId))
-        {
-            return parsedId;
-        }
+        if (Guid.TryParse(userId?.Value, out var parsedId)) return parsedId;
 
         return null;
     }

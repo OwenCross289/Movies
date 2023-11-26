@@ -11,7 +11,7 @@ public class RatingRepository : IRatingRepository
     {
         _dbConnectionFactory = dbConnectionFactory;
     }
-    
+
     public async Task<float?> GetRatingAsync(Guid movieId, CancellationToken token = default)
     {
         using var connection = await _dbConnectionFactory.CreateConnectionAsync(token);
@@ -19,10 +19,12 @@ public class RatingRepository : IRatingRepository
             new { movieId }, cancellationToken: token));
     }
 
-    public async Task<(float? Rating, int? UserRating)> GetRatingAsync(Guid movieId, Guid userId, CancellationToken token = default)
+    public async Task<(float? Rating, int? UserRating)> GetRatingAsync(Guid movieId, Guid userId,
+        CancellationToken token = default)
     {
         using var connection = await _dbConnectionFactory.CreateConnectionAsync(token);
-        return await connection.QuerySingleOrDefaultAsync<(float? Rating, int? UserRating)>(new CommandDefinition(Sql.GetRatingByMovieIdAndUserid,
+        return await connection.QuerySingleOrDefaultAsync<(float? Rating, int? UserRating)>(new CommandDefinition(
+            Sql.GetRatingByMovieIdAndUserid,
             new { movieId, userId }, cancellationToken: token));
     }
 }

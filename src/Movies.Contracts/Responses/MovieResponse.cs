@@ -1,10 +1,10 @@
 namespace Movies.Contracts.Responses;
 
 public record MovieResponse(
-    Guid Id,  
+    Guid Id,
     string Title,
     string Slug,
-    int YearOfRelease, 
+    int YearOfRelease,
     float? Rating,
     int? UserRating,
     IEnumerable<string> Genres);

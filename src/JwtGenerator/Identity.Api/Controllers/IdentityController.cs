@@ -14,7 +14,7 @@ public class IdentityController : ControllerBase
     private static readonly TimeSpan TokenLifetime = TimeSpan.FromHours(8);
 
     [HttpPost("token")]
-    public IActionResult GenerateToken([FromBody]TokenGenerationRequest request)
+    public IActionResult GenerateToken([FromBody] TokenGenerationRequest request)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
         var key = Encoding.UTF8.GetBytes(TokenSecret);
@@ -26,7 +26,7 @@ public class IdentityController : ControllerBase
             new(JwtRegisteredClaimNames.Email, request.Email),
             new("userid", request.UserId.ToString())
         };
-        
+
         foreach (var claimPair in request.CustomClaims)
         {
             var jsonElement = (JsonElement)claimPair.Value;
@@ -37,20 +37,21 @@ public class IdentityController : ControllerBase
                 JsonValueKind.Number => ClaimValueTypes.Double,
                 _ => ClaimValueTypes.String
             };
-            
+
             var claim = new Claim(claimPair.Key, claimPair.Value.ToString()!, valueType);
             claims.Add(claim);
         }
-        
+
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(claims),
             Expires = DateTime.UtcNow.Add(TokenLifetime),
             Issuer = "OwenCross",
             Audience = "Movies.OwenCross",
-            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            SigningCredentials =
+                new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
         };
-        
+
         var token = tokenHandler.CreateToken(tokenDescriptor);
 
         var jwt = tokenHandler.WriteToken(token);

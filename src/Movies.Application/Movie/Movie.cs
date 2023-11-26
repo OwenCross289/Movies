@@ -11,7 +11,7 @@ public partial class Movie
     public float? Rating { get; set; }
     public int? UserRating { get; set; }
     public required List<string> Genres { get; init; } = new();
-    
+
     private string GenerateSlug()
     {
         var sluggedTitle = RemoveSpecialCharsRegex()

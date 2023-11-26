@@ -32,10 +32,12 @@ builder.Services.AddAuthentication(x =>
 
 builder.Services.AddAuthorization(x =>
 {
-    x.AddPolicy(AuthConstants.AdminUserPolicyName, policyBuilder => policyBuilder.RequireClaim(AuthConstants.AdminUserClaimName, "true"));
+    x.AddPolicy(AuthConstants.AdminUserPolicyName,
+        policyBuilder => policyBuilder.RequireClaim(AuthConstants.AdminUserClaimName, "true"));
     x.AddPolicy(AuthConstants.TrustedMemberPolicyName, policyBuilder => policyBuilder.RequireAssertion(c =>
-        c.User.HasClaim(m => m is {Type: AuthConstants.AdminUserClaimName, Value: "true"} ||
-        c.User.HasClaim(me => me is {Type: AuthConstants.TrustedMemberClaimName, Value: "true"}))));
+        c.User.HasClaim(m => m is { Type: AuthConstants.AdminUserClaimName, Value: "true" } ||
+                             c.User.HasClaim(me => me is
+                                 { Type: AuthConstants.TrustedMemberClaimName, Value: "true" }))));
 });
 
 
@@ -85,4 +87,3 @@ var dbInitializer = app.Services.GetRequiredService<DbInitializer>();
 await dbInitializer.InitializeAsync();
 
 app.Run();
-
