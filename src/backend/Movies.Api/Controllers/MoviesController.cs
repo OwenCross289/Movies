@@ -6,6 +6,7 @@ using Movies.Application.Movie;
 using Movies.Contracts.Requests;
 
 namespace Movies.Api.Controllers;
+
 /*
  Admin: True. TrustedUser: True
  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJkMjM5NjkwZS05YTRlLTRhODQtYmRkMC1jNTgwOTdhN2Y3ZGEiLCJzdWIiOiJPd2VuQ3Jvc3M5OUBHbWFpbC5jb20iLCJlbWFpbCI6Ik93ZW5Dcm9zczk5QEdtYWlsLmNvbSIsInVzZXJpZCI6ImQ4NTY2ZGUzLWIxYTYtNGE5Yi1iODQyLThlMzg4N2E4MmU0MSIsImFkbWluIjp0cnVlLCJ0cnVzdGVkX21lbWJlciI6dHJ1ZSwibmJmIjoxNjkwODI1OTc2LCJleHAiOjE2OTA4NTQ3NzYsImlhdCI6MTY5MDgyNTk3NiwiaXNzIjoiT3dlbkNyb3NzIiwiYXVkIjoiTW92aWVzLk93ZW5Dcm9zcyJ9.QAMRAQ8F-YcuivrQhLXtezBJRZYCT1KGVRJu2JKsWek
@@ -27,7 +28,7 @@ public class MoviesController : ControllerBase
         _movieService = movieService;
     }
 
-    [Authorize(AuthConstants.TrustedMemberPolicyName)]
+    //[Authorize(AuthConstants.TrustedMemberPolicyName)]
     [HttpPost(ApiEndpoints.Movies.Create)]
     public async Task<IActionResult> Create([FromBody] CreateMovieRequest request, CancellationToken token)
     {
@@ -39,7 +40,7 @@ public class MoviesController : ControllerBase
             movie.ToResponse());
     }
 
-    [Authorize(AuthConstants.TrustedMemberPolicyName)]
+    //[Authorize(AuthConstants.TrustedMemberPolicyName)]
     [HttpGet(ApiEndpoints.Movies.Get)]
     public async Task<IActionResult> Get([FromRoute] string idOrSlug, CancellationToken token)
     {
@@ -53,7 +54,7 @@ public class MoviesController : ControllerBase
         return Ok(movie.ToResponse());
     }
 
-    [Authorize(AuthConstants.TrustedMemberPolicyName)]
+    //[Authorize(AuthConstants.TrustedMemberPolicyName)]
     [HttpGet(ApiEndpoints.Movies.GetAll)]
     public async Task<IActionResult> GetAll(CancellationToken token)
     {
@@ -62,7 +63,7 @@ public class MoviesController : ControllerBase
         return Ok(movies.ToResponse());
     }
 
-    [Authorize(AuthConstants.TrustedMemberPolicyName)]
+    //[Authorize(AuthConstants.TrustedMemberPolicyName)]
     [HttpPut(ApiEndpoints.Movies.Update)]
     public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateMovieRequest request,
         CancellationToken token)
@@ -74,7 +75,7 @@ public class MoviesController : ControllerBase
         return Ok(updatedMovie.ToResponse());
     }
 
-    [Authorize(AuthConstants.AdminUserPolicyName)]
+    //[Authorize(AuthConstants.AdminUserPolicyName)]
     [HttpDelete(ApiEndpoints.Movies.Delete)]
     public async Task<IActionResult> Delete([FromRoute] Guid id, CancellationToken token)
     {

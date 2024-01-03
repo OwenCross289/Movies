@@ -9,7 +9,7 @@ using Movies.Application.Database;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
-
+builder.AddServiceDefaults();
 builder.Services.AddAuthentication(x =>
 {
     x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -39,7 +39,6 @@ builder.Services.AddAuthorization(x =>
                              c.User.HasClaim(me => me is
                                  { Type: AuthConstants.TrustedMemberClaimName, Value: "true" }))));
 });
-
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

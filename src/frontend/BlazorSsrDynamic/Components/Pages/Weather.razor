@@ -1,0 +1,51 @@
+﻿@page "/weather"
+@using Movies.Api.Sdk
+@using Movies.Contracts.Responses
+@attribute [StreamRendering]
+@inject IMoviesApi ApiClient
+
+<PageTitle>Movies</PageTitle>
+
+<h1>Movies</h1>
+
+<p>This component demonstrates showing data.</p>
+
+@if (_movies == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Release Year</th>
+                <th>Slug</th>
+                <th>Rating</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var movie in _movies!.Items)
+            {
+                <tr>
+                    <td>@movie.Title</td>
+                    <td>@movie.YearOfRelease</td>
+                    <td>@movie.Slug</td>
+                    <td>@movie.Rating</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private MoviesResponse? _movies;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Simulate asynchronous loading to demonstrate streaming rendering
+        _movies = await ApiClient.GetMoviesAsync();
+    }
+    
+}
