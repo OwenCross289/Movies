@@ -1,0 +1,8 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/Azure/azure-dev/main/schemas/v1.0/azure.yaml.json
+
+name: movies
+services:  
+  app:
+    language: dotnet
+    project: ./src/Aspire.Sample.AppHost/Aspire.Sample.AppHost.csproj
+    host: containerapp
