@@ -1,23 +1,24 @@
 using Dapper;
+using Npgsql;
 
 namespace Movies.Application.Database;
 
 public class DbInitializer
 {
-    private readonly IDbConnectionFactory _dbConnectionFactory;
+    private readonly NpgsqlConnection _connection;
 
-    public DbInitializer(IDbConnectionFactory dbConnectionFactory)
+    public DbInitializer(NpgsqlConnection connection)
     {
-        _dbConnectionFactory = dbConnectionFactory;
+        _connection = connection;
     }
 
     public async Task InitializeAsync()
-    {
-        using var connection = await _dbConnectionFactory.CreateConnectionAsync();
+    { 
+        await _connection.OpenAsync();
 
-        await connection.ExecuteAsync(Sql.CreateMoviesTable);
-        await connection.ExecuteAsync(Sql.CreateSlugIndex);
-        await connection.ExecuteAsync(Sql.CreateGenresTable);
-        await connection.ExecuteAsync(Sql.CreateRatingsTable);
+        await _connection.ExecuteAsync(Sql.CreateMoviesTable);
+        await _connection.ExecuteAsync(Sql.CreateSlugIndex);
+        await _connection.ExecuteAsync(Sql.CreateGenresTable);
+        await _connection.ExecuteAsync(Sql.CreateRatingsTable);
     }
 }

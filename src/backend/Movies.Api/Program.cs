@@ -10,6 +10,8 @@ using Movies.Application.Database;
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
 builder.AddServiceDefaults();
+
+builder.AddNpgsqlDataSource("Movies2");
 builder.Services.AddAuthentication(x =>
 {
     x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -63,7 +65,7 @@ builder.Services.AddSwaggerGen(c =>
     c.AddSecurityRequirement(securityRequirement);
 });
 builder.Services.AddApplication();
-builder.Services.AddDatabase(config["Database:ConnectionString"]!);
+builder.Services.AddDatabase();
 
 var app = builder.Build();
 

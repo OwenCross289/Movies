@@ -17,9 +17,8 @@ public static class ApplicationServiceCollectionExtensions
         return services;
     }
 
-    public static IServiceCollection AddDatabase(this IServiceCollection services, string connectionString)
+    public static IServiceCollection AddDatabase(this IServiceCollection services)
     {
-        services.AddSingleton<IDbConnectionFactory>(_ => new NpgSqlConnectionFactory(connectionString));
         services.AddSingleton<DbInitializer>();
         return services;
     }
