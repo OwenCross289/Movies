@@ -5,6 +5,7 @@ using Refit;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Adds all of the Aspire goodness
 builder.AddServiceDefaults();
 
 // Add services to the container.
@@ -12,6 +13,7 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
 
+// add the sdk for the web api
 builder.Services
     .AddHttpClient()
     .AddRefitClient<IMoviesApi>()

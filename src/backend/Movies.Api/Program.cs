@@ -9,9 +9,12 @@ using Movies.Application.Database;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
+
+// Adds all of the Aspire goodness
 builder.AddServiceDefaults();
 
 builder.AddNpgsqlDataSource("Movies2");
+
 builder.Services.AddAuthentication(x =>
 {
     x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
