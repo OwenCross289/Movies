@@ -1,6 +1,6 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
-var moviesDbName = "Movies2";
+var moviesDbName = "Movies";
 var moviesDb = builder.AddPostgresContainer("postgres")
     // Set the name of the default database to auto-create on container startup.
     .WithEnvironment("POSTGRES_DB", moviesDbName)

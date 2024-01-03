@@ -13,7 +13,7 @@ var config = builder.Configuration;
 // Adds all of the Aspire goodness
 builder.AddServiceDefaults();
 
-builder.AddNpgsqlDataSource("Movies2");
+builder.AddNpgsqlDataSource("Movies");
 
 builder.Services.AddAuthentication(x =>
 {

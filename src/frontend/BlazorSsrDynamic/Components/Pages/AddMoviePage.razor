@@ -1,0 +1,52 @@
+@page "/addMovie"
+@using Movies.Contracts.Requests
+@using Movies.Api.Sdk
+@attribute [StreamRendering]
+@rendermode InteractiveServer
+@inject IMoviesApi ApiClient
+
+<PageTitle>Add Movie</PageTitle>
+
+<h3>Add Movie</h3>
+
+<EditForm Model="@Model" OnSubmit="@Submit" FormName="AddMovie">
+    <div class="form-row mb-3"> <!-- Added margin-bottom for spacing -->
+        <div class="form-group col-md-6">
+            <label for="title">Title:</label>
+            <InputText id="title" @bind-Value="Model!.Title" class="form-control" />
+        </div>
+    </div>
+
+    <div class="form-row mb-3"> <!-- Added margin-bottom for spacing -->
+        <div class="form-group col-md-6">
+            <label for="releaseYear">Release Year:</label>
+            <InputNumber id="releaseYear" @bind-Value="Model!.YearOfRelease" class="form-control" />
+        </div>
+    </div>
+
+    <div class="form-row mb-3"> <!-- Added margin-bottom for spacing -->
+        <div class="form-group col-md-6">
+            <label for="submitButton"></label> <!-- Empty label for spacing -->
+            <button type="submit" id="submitButton" class="btn btn-primary">Submit</button>
+        </div>
+    </div>
+</EditForm>
+
+@code {
+    [SupplyParameterFromForm]
+    public CreateMovie? Model { get; set; }
+
+    protected override void OnInitialized() => Model
+        = new CreateMovie();
+
+    private void Submit()
+    {
+        ApiClient.CreateMovieAsync(new CreateMovieRequest(Model.Title, Model.YearOfRelease, ["Drama"]));
+    }
+    
+    public class CreateMovie
+    {
+        public string Title { get; set; } = "";
+        public int YearOfRelease { get; set; }
+    }
+}
